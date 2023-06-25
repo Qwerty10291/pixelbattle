@@ -57,7 +57,7 @@ func NewPixelBattle(width, heigth int, filename string) (*PixelBattle, error) {
 
 func (p *PixelBattle) SetPixel(x, y int, color utils.RGB) error {
 	i := y * p.Width + x
-	if i > len(p.area) {
+	if i > len(p.area) - 3 {
 		return fmt.Errorf("coordinates %d %d out of bounce", x, y)
 	}
 	p.area[i] = color.R
@@ -70,7 +70,7 @@ func (p *PixelBattle) SetPixel(x, y int, color utils.RGB) error {
 
 func (p *PixelBattle) GetPixel(x, y int) (*utils.RGB, error) {
 	i := y * p.Width + x
-	if i > len(p.area) {
+	if i > len(p.area) - 3 {
 		return nil, fmt.Errorf("coordinates %d %d out of bounce", x, y)
 	}
 	return &utils.RGB{R: p.area[i], G: p.area[i + 1], B: p.area[i + 2]}, nil
